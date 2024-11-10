@@ -282,4 +282,22 @@
             }
         });
     });
+    let scrollPosition = 0;
+
+    // Store scroll position when opening a lightbox
+    document.querySelectorAll('.gallery a').forEach(link => {
+        link.addEventListener('click', function() {
+            scrollPosition = window.scrollY; // Store the current scroll position
+        });
+    });
+    
+    // Close lightbox and restore scroll position
+    document.querySelectorAll('.lightbox').forEach(lightbox => {
+        lightbox.addEventListener('click', function(event) {
+            if (event.target === this) {
+                window.location.hash = ''; // Close the lightbox by clearing the hash
+                window.scrollTo(0, scrollPosition); // Restore scroll position
+            }
+        });
+    });
 </script>
