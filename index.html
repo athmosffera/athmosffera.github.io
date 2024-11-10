@@ -153,13 +153,13 @@
             color: #ffffff;
         }
         .image-container {
-            display: flex;
-            flex-direction: column;
-            height: 300px; /* Set a height to make the layout more visible */
+            display: grid;
+            grid-template-rows: 1fr auto; /* First row fills space, second row is auto-sized */
+            height: 300px; /* Define a container height */
         }
         
-        .bottom-image {
-            margin-top: auto; /* Pushes this element to the bottom */
+        .image-container a:last-child {
+            align-self: end; /* Positions the last <a> element at the bottom */
         }
 
     </style>
