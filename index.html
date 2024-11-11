@@ -300,4 +300,15 @@
             }
         });
     });
+    document.querySelectorAll('.lightbox').forEach(lightbox => {
+    lightbox.addEventListener('click', function(event) {
+        // Check if the clicked element is the lightbox background or the close link
+        if (event.target === this || event.target.classList.contains('close')) {
+            event.preventDefault(); // Prevent default behavior to avoid scrolling to top
+            window.location.hash = ''; // Clear the hash to close the lightbox
+            window.scrollTo(0, scrollPosition); // Restore scroll position
+        }
+    });
+});
+
 </script>
