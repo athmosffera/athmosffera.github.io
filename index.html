@@ -176,25 +176,25 @@
     </div>
 
     <div class="gallery">
-        <a href="#lightbox2"><img src="images/image2.jpg" alt="Image 2"></a>
-        <a href="#lightbox3"><img src="images/image4.jpg" alt="Image 3"></a>
-        <a href="#lightbox4"><img src="images/image6.jpg" alt="Image 4"></a>
-        <a href="#lightbox5"><img src="images/image3.jpg" alt="Image 5"></a>
-        <a href="#lightbox6"><img src="images/image5.jpg" alt="Image 6"></a>
-        <a href="#lightbox7"><img src="images/forest.jpg" alt="Image 7"></a>
-        <a href="#lightbox8"><img src="images/image8.jpg" alt="Image 8"></a>
-        <a href="#lightbox9"><img src="images/image9.jpg" alt="Image 9"></a>
-        <a href="#lightbox10"><img src="images/image10.jpg" alt="Image 10"></a>
-        <a href="#lightbox11"><img src="images/Koliažas.jpg" alt="Image 11"></a>
-        <a href="#lightbox12"><img src="images/magic hands.jpg" alt="Image 12"></a>
-        <a href="#lightbox13"><img src="images/Tv roots.jpg" alt="Image 13"></a>
-        <a href="#lightbox14"><img src="images/avilys3.jpg" alt="Image 14"></a>
+        <a data-lightbox="#lightbox2"><img src="images/image2.jpg" alt="Image 2"></a>
+        <a data-lightbox="#lightbox3"><img src="images/image4.jpg" alt="Image 3"></a>
+        <a data-lightbox="#lightbox4"><img src="images/image6.jpg" alt="Image 4"></a>
+        <a data-lightbox="#lightbox5"><img src="images/image3.jpg" alt="Image 5"></a>
+        <a data-lightbox="#lightbox6"><img src="images/image5.jpg" alt="Image 6"></a>
+        <a data-lightbox="#lightbox7"><img src="images/forest.jpg" alt="Image 7"></a>
+        <a data-lightbox="#lightbox8"><img src="images/image8.jpg" alt="Image 8"></a>
+        <a data-lightbox="#lightbox9"><img src="images/image9.jpg" alt="Image 9"></a>
+        <a data-lightbox="#lightbox10"><img src="images/image10.jpg" alt="Image 10"></a>
+        <a data-lightbox="#lightbox11"><img src="images/Koliažas.jpg" alt="Image 11"></a>
+        <a data-lightbox="#lightbox12"><img src="images/magic hands.jpg" alt="Image 12"></a>
+        <a data-lightbox="#lightbox13"><img src="images/Tv roots.jpg" alt="Image 13"></a>
+        <a data-lightbox="#lightbox14"><img src="images/avilys3.jpg" alt="Image 14"></a>
         <div class="image-container">
     
-<a href="#lightbox15"><img src="images/Gėlės Kurmaičičuose vizitinė.png" alt="Image 15"></a>
-<a href="#lightbox17"><img src="images/FRESHBLOOD1.jpg" alt="Image 17"></a>
+<a data-lightbox="#lightbox15"><img src="images/Gėlės Kurmaičičuose vizitinė.png" alt="Image 15"></a>
+<a data-lightbox="#lightbox17"><img src="images/FRESHBLOOD1.jpg" alt="Image 17"></a>
 </div>
-        <a href="#lightbox16"><img src="images/Pajauta fest.jpg" alt="Image 16"></a>
+        <a data-lightbox="#lightbox16"><img src="images/Pajauta fest.jpg" alt="Image 16"></a>
     </div>
 
     <!-- Lightboxes -->
@@ -275,41 +275,32 @@
 </html>
 
 <script>
-    document.querySelectorAll('.lightbox').forEach(lightbox => {
-        lightbox.addEventListener('click', function(event) {
-            if (event.target === this) {
-                window.location.hash = ''; // Close lightbox by clearing the hash
-            }
-        });
-    });
     let scrollPosition = 0;
 
-    // Store scroll position when opening a lightbox
-    document.querySelectorAll('.gallery a').forEach(link => {
-        link.addEventListener('click', function() {
-            scrollPosition = window.scrollY; // Store the current scroll position
-        });
+// Open lightbox without modifying the URL hash
+document.querySelectorAll('[data-lightbox]').forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+        scrollPosition = window.scrollY; // Store the current scroll position
+
+        // Get the target lightbox ID from data-lightbox attribute
+        const lightboxId = this.getAttribute('data-lightbox');
+        document.getElementById(lightboxId).classList.add('visible'); // Display the lightbox
     });
-    
-    // Close lightbox and restore scroll position
-    document.querySelectorAll('.lightbox').forEach(lightbox => {
-        lightbox.addEventListener('click', function(event) {
-            if (event.target === this) {
-                window.location.hash = ''; // Close the lightbox by clearing the hash
-                window.scrollTo(0, scrollPosition); // Restore scroll position
-            }
-        });
-    });
-    document.querySelectorAll('.lightbox').forEach(lightbox => {
+});
+
+// Close lightbox and restore scroll position
+document.querySelectorAll('.lightbox').forEach(lightbox => {
     lightbox.addEventListener('click', function(event) {
-        // Check if the clicked element is the lightbox background or the close link
+        // Close if the background or the close link is clicked
         if (event.target === this || event.target.classList.contains('close')) {
-            event.preventDefault(); // Prevent default behavior to avoid scrolling to top
-            window.location.hash = ''; // Clear the hash to close the lightbox
-            window.scrollTo(0, scrollPosition); // Restore scroll position
+            event.preventDefault(); // Prevent default behavior to avoid any unintended scrolling
+            this.classList.remove('visible'); // Hide the lightbox
+            window.scrollTo(0, scrollPosition); // Restore the original scroll position
         }
     });
 });
+
 
 
 </script>
