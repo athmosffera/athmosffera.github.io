@@ -310,5 +310,14 @@
         }
     });
 });
+    document.querySelectorAll('.close').forEach(closeLink => {
+    closeLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent scroll-to-top
+        const lightbox = closeLink.closest('.lightbox');
+        lightbox.classList.remove('visible'); // Hide lightbox
+        window.scrollTo(0, scrollPosition); // Restore scroll position
+    });
+});
+
 
 </script>
